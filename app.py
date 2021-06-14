@@ -19,7 +19,7 @@ botName="Mike"
 firstMessage = """
 <p class='chatbot__message'>
     <strong class='intro'>
-    Hello, I’m Mike, your virtual assistant. 
+    Hello, I’m Naledi, your virtual assistant. 
     I'm here to help with your general enquiries.
     </strong>
 
@@ -28,7 +28,7 @@ firstMessage = """
     <br>
 
     <em>
-    Hi / How are you? / I'd like some financial advice / Can you email me a statement? / Can I get a form? /  How do I cancel my life insurance? 
+    Hi / How are you? etc.
     </em>
 </p>"""
 
