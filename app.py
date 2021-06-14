@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, session, jsonify, make_response, flash, send_file, redirect, url_for, copy_current_request_context
+from flask import Flask, render_template, request, session, jsonify, make_response
 import requests
 import json
 
@@ -16,7 +16,7 @@ refreshToken = "eyJjdHkiOiJKV1QiLCJlbmMiOiJBMjU2R0NNIiwiYWxnIjoiUlNBLU9BRVAifQ.a
 
 
 botName="Mike"
-firstMessage = """
+firstBotMessage = """
 <p class='chatbot__message'>
     <strong class='intro'>
     Hello, I’m Naledi, your virtual assistant. 
@@ -33,31 +33,32 @@ firstMessage = """
 </p>"""
 
 
-# could be dynamic
+# Could be dynamic
 LanguageCode = "English"
 MessageType = "text"
 ResponseType = "text"
 
 @app.route('/', methods = ['POST', 'GET'])
 def index():
-    return render_template('index.html', botName=botName, firstMessage=firstMessage)
+    return render_template('index.html', botName=botName, firstMessage=firstBotMessage)
 
 @app.route('/startConversation')
 def startConversation():
     # Generate Auth Token
-    print('startConversation')
-    # LanguageCode = request.form.get('LanguageCode')
-    payload={'REFRESH_TOKEN': refreshToken,}
+    payload={
+        'REFRESH_TOKEN': refreshToken,
+        }
     IdToken = json.loads(requests.request("POST", generateAuthTokenUrl, data=payload).content)['AuthenticationResult']['IdToken']
-    print('IdToken', IdToken)
 
     # Generate ConversationID
     payload={
         'BotID': BotID,
-        'LanguageCode': LanguageCode}
+        'LanguageCode': LanguageCode
+        }
     headers = {"Authorization": "Bearer {}".format(IdToken)}
     ConversationID = json.loads(requests.request("POST", connectUrl, headers=headers, data=payload).content)['ConversationID']
-    print('ConversationID', ConversationID)
+
+    # Store ConversationID & IdToken for the session
     session['ConversationID'] = ConversationID
     session['IdToken'] = IdToken
 
@@ -65,15 +66,17 @@ def startConversation():
 
 @app.route('/sendMessage', methods = ['GET'])
 def sendMessage():
+    # Get session variables
     ConversationID = session['ConversationID']
     IdToken = session['IdToken']
-    print('ConversationID', ConversationID)
+
+    # Get request parameters
     # LanguageCode = request.form.get('LanguageCode')
     # MessageType = request.form.get('MessageType')
     # ResponseType = request.form.get('ResponseType')
     TextMsg = request.args.get('text')
-    print(TextMsg)
 
+    # Send message to bot
     payload={
         'BotID': BotID,
         'LanguageCode': LanguageCode,
@@ -83,13 +86,11 @@ def sendMessage():
         'TextMsg': TextMsg
     }
     headers = {"Authorization": "Bearer {}".format(IdToken)}
-
     response = requests.request("POST", sendMessageUrl, headers=headers, data=payload).text
-    print(response)
 
     return response
 
 
 if __name__ == "__main__":
-    app.debug = False
+    app.debug = True
     app.run(port='5000')
