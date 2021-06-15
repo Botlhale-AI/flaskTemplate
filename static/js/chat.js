@@ -1,6 +1,3 @@
-const accessToken = "2d1ddeaadc20462dba88c9beebbe0a21";
-const baseUrl = "https://api.api.ai/api/query?v=20150910";
-const sessionId = "1";
 const loader = {'content':`<span class='loader'><span class='loader__dot'></span><span class='loader__dot'></span><span class='loader__dot'></span></span>`,'buttons':false};
 const errorMessage = "My apologies, I'm not available at the moment. =^.^=";
 const urlPattern = /(\b(https?|ftp):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/gim;
@@ -50,7 +47,7 @@ $chatbotSubmit.addEventListener(
 document.getElementById("chat-circle").addEventListener(
   "click",
   () => {
-    // Hit Start Conversation API
+    // Hit Start Conversation Endpoint
     fetch('startConversation',)
     .then(response => response.json())
     .then(data => {
@@ -97,7 +94,7 @@ const aiMessage = (content, isLoading = false, delay = 0) => {
       class='is-ai animation' 
       id='${isLoading ? "is-loading" : ""}'>
         <span class='chatbot__arrow chatbot__arrow--left'></span>
-        <div class='chatbot__message' style="background-color:#ffffff;margin-left: 25px;">
+        <div class='row' style="background-color:#ffffff;margin-left:50px; overflow-x: auto;padding-top: 8px; flex:auto;">
           ${content.content}
         </div>
       </li>`;
@@ -163,11 +160,8 @@ const multiChoiceAnswer = (value, title ) => {
 
 const processResponse = (val, type ) => {
   removeLoader();
-  console.log('val ', val)
-  console.log('type ', type)
-  console.log('type ', type)
-
   switch (type) {
+
     // 0 response is text
     case 0:
       output = {'buttons':false, 'content':val}
@@ -184,7 +178,6 @@ const processResponse = (val, type ) => {
         console.log(val[i].payload)
         
         buttons += `<button onclick='multiChoiceAnswer("${value}", "${title}")' value=${value}>${title}</button>`;
-        
       }
       output = {'buttons':true, 'content':buttons};
       break;
@@ -198,7 +191,6 @@ const processResponse = (val, type ) => {
               Your browser does not support the
               <code>audio</code> element.
       </audio>`;
-     
       output = {'buttons':false, 'content':speech}
       break;
 
@@ -230,7 +222,7 @@ const scrollDown = () => {
 };
 
 const send = (text = "") => {
-  fetch(`/sendMessage?text=${text}&lang=en&sessionId=${sessionId}`, {
+  fetch(`/sendMessage?text=${text}&lang=en`, {
     method: "GET",
     dataType: "json",
   })
