@@ -13,7 +13,7 @@ After, install all necessary to run:
 
     $ pip install -r requirements.txt
 
-Than, run the application:
+Then, add all the required parametaers in the `config.json` & run the application:
 
 	$ python app.py
 
@@ -22,7 +22,7 @@ To see your application, access this url in your browser:
 	http://localhost:5000
 
 ## Configuration: connect to your deployed bot
-You can configure `BotID`, `LanguageCode`, `MessageType`, `ResponseType`, `refreshToken` in `config.json`. 
+You can configure `BotID`, `LanguageCode`, `MessageType`, `ResponseType`, `refreshToken` in `config.json`. After providing the required parameters in the `config.json` you can run `python app.py` and your bot should respond.
 
 ```json
 {
@@ -34,7 +34,7 @@ You can configure `BotID`, `LanguageCode`, `MessageType`, `ResponseType`, `refre
 }
 ```
 
-`BotID` and the `refreshToken` are provided to you in the Botlhale NLP Toolkit.
+`BotID` and the `refreshToken` are provided to you in the Botlhale NLP Toolkit. 
 
 ## Flask App Structure
 The flask app has 2 main routes, namely `startConversation` and `sendMessage`. These routes follow [Botlhale AI's API Documentation](https://botlhale-ai.stoplight.io/docs/rest-apis/docs/REST%20APIs/0-chatbots.md) to interact with a chatbot deployment from Botlhale's NLP Toolkit. 
