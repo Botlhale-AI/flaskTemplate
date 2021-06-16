@@ -1,4 +1,6 @@
 # Flask Template Deployment
+
+![Demo](static/img/FlaskTemplate.gif)
 ## Installation
 
 First, clone this repository.
