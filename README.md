@@ -37,7 +37,7 @@ You can configure `BotID`, `LanguageCode`, `MessageType`, `ResponseType`, `refre
 `BotID` and the `refreshToken` are provided to you in the Botlhale NLP Toolkit.
 
 ## Flask App Structure
-The flask app has 2 main routes, namely `startConversation` and `sendMessage`. These routes follow [Botlhale's API documentation](https://botlhale-ai.stoplight.io/docs/rest-apis/docs/REST%20APIs/0-chatbots.md) to interact with a chatbot deployment from Botlhale's NLP Toolkit. 
+The flask app has 2 main routes, namely `startConversation` and `sendMessage`. These routes follow [Botlhale AI's API Documentation](https://botlhale-ai.stoplight.io/docs/rest-apis/docs/REST%20APIs/0-chatbots.md) to interact with a chatbot deployment from Botlhale's NLP Toolkit. 
 
 ### 1. startConversation
  This routes hits the `https://dev-botlhale.io/generateAuthToken` with the `refreshToken` to get the `IdToken` for Bearer Auth on other endpoints. After getting the `IdToken`, the `https://dev-botlhale.io/connect` endpoint is hit with the `IdToken` in the header and `BotID` & `LanguageCode` in the request body to generate the `ConversationID`.
