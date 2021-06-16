@@ -1,0 +1,7 @@
+{
+    "BotID": "<BotID>", 
+    "LanguageCode": "English",
+    "MessageType": "text",
+    "ResponseType": "text",
+    "refreshToken": "<Refresh Token>"
+}
