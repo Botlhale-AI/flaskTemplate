@@ -1,5 +1,5 @@
 # Flask Template Deployment
-**This application is a demonstration of how to use our APIs through an app developed through Python's ![Flask Framework](https://flask.palletsprojects.com/en/2.0.x/) to interact with your deployed bot.**
+**This application is a demonstration of how to use our APIs through an app developed through Python's [Flask Framework](https://flask.palletsprojects.com/en/2.0.x/) to interact with your deployed bot.**
 
 ![Demo](static/img/FlaskTemplate.gif)
 ## Installation
