@@ -1,4 +1,5 @@
 # Flask Template Deployment
+**This application is a demonstration of how to use our APIs through an app developed through Python's Flask Framework to interact with your deployed bot.**
 
 ![Demo](static/img/FlaskTemplate.gif)
 ## Installation
