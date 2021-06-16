@@ -10,16 +10,17 @@ generateAuthTokenUrl = "https://dev-botlhale.io/generateAuthToken"
 connectUrl = "https://dev-botlhale.io/connect"
 sendMessageUrl = "https://dev-botlhale.io/message"
 
+# Chatbot Params
 with open('config.json') as json_file:
     parameters = json.load(json_file) 
 
-# Chatbot Params
 BotID = parameters['BotID']
 refreshToken = parameters['refreshToken']
 LanguageCode = parameters['LanguageCode']
 MessageType = parameters['MessageType']
 ResponseType = parameters['ResponseType']
 
+# Front-End Variables
 botName="Naledi"
 firstBotMessage = """
 <p class='chatbot__message'>
@@ -38,20 +39,19 @@ firstBotMessage = """
 </p>"""
 
 
-
 @app.route('/', methods = ['POST', 'GET'])
 def index():
     return render_template('index.html', botName=botName, firstMessage=firstBotMessage)
 
 @app.route('/startConversation')
 def startConversation():
-    # Generate Auth Token
+    # Generate IdToken for Bearer Auth on other endpoints.
     payload={
         'REFRESH_TOKEN': refreshToken,
         }
     IdToken = json.loads(requests.request("POST", generateAuthTokenUrl, data=payload).content)['AuthenticationResult']['IdToken']
 
-    # Generate ConversationID
+    # Generate ConversationID.
     payload={
         'BotID': BotID,
         'LanguageCode': LanguageCode
@@ -59,7 +59,7 @@ def startConversation():
     headers = {"Authorization": "Bearer {}".format(IdToken)}
     ConversationID = json.loads(requests.request("POST", connectUrl, headers=headers, data=payload).content)['ConversationID']
 
-    # Store ConversationID & IdToken for the session
+    # Store ConversationID & IdToken in the session for use in the sendMessage route.
     session['ConversationID'] = ConversationID
     session['IdToken'] = IdToken
 
@@ -85,7 +85,6 @@ def sendMessage():
     }
     headers = {"Authorization": "Bearer {}".format(IdToken)}
     response = requests.request("POST", sendMessageUrl, headers=headers, data=payload).text
-
     return response
 
 

@@ -14,6 +14,7 @@ const $chatbotMessages = $document.querySelector(".chatbot__messages");
 const $chatbotInput = $document.querySelector(".chatbot__input");
 const $chatbotSubmit = $document.querySelector(".chatbot__submit");
 
+
 document.addEventListener(
   "keypress",
   event => {
@@ -27,8 +28,6 @@ document.addEventListener(
 $chatbotHeader.addEventListener(
   "click",
   () => {
-    // toggle($chatbot, "chatbot--closed");
-    // $chatbotInput.focus();
     var element =                 document.getElementsByClassName("chatbot");
       element[0].style.display = "none";
      document.getElementById("chat-circle").style.display="block";
@@ -50,26 +49,27 @@ document.getElementById("chat-circle").addEventListener(
     // Hit Start Conversation Endpoint
     fetch('startConversation',)
     .then(response => response.json())
-    .then(data => {
-      console.log('Success:', data);
+    .then(data => 
+      {
+        console.log('Success:', data);
 
-      // Show Chat Inteface
-      var element = document.getElementsByClassName("chatbot");
-      element[0].classList.remove("chatbot--closed");
-      element[0].style.display = "block";
-      $chatbotInput.focus();
-      console.log(this);
-      document.getElementById("chat-circle").style.display="none"; 
-
+        // Show Chat Inteface
+        var element = document.getElementsByClassName("chatbot");
+        element[0].classList.remove("chatbot--closed");
+        element[0].style.display = "block";
+        $chatbotInput.focus();
+        console.log(this);
+        document.getElementById("chat-circle").style.display="none"; 
     })
-    .catch((error) => {
-      console.error('Error:', error);
-    });
-
-      
+    .catch((error) => 
+    {
+        console.error('Error:', error);
+    }); 
 }
 );
 
+
+// Functions
 const toggle = (element, klass) => {
   const classes = element.className.match(/\S+/g) || [],
     index = classes.indexOf(klass);
@@ -194,7 +194,7 @@ const processResponse = (val, type ) => {
       output = {'buttons':false, 'content':speech}
       break;
 
-    // 3 response is image
+    // 3 response is image - TODO
     case 3:
       console.log('response is image - TODO')
       break;
@@ -222,7 +222,7 @@ const scrollDown = () => {
 };
 
 const send = (text = "") => {
-  fetch(`/sendMessage?text=${text}&lang=en`, {
+  fetch(`/sendMessage?text=${text}`, {
     method: "GET",
     dataType: "json",
   })
@@ -237,17 +237,19 @@ const send = (text = "") => {
       return res;
     })
     .then(res => {
-  
+      // extracting bot message from API response
       for (i = 0; i < res.TextResponse.length ;i++){
         setResponse(res.TextResponse[i], loadingDelay + aiReplyDelay, 0);
       }
       return res
     })
     .then(res => {
+      // If response has buttons
       if (res.Buttons.length > 0){
         setResponse(res.Buttons, loadingDelay + aiReplyDelay + 10, 1);
       }
 
+      // If response has speech
       if (res.SpeechResponseURL){
         setResponse(res.SpeechResponseURL, loadingDelay + aiReplyDelay + 10, 2);
       }
