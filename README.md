@@ -13,7 +13,7 @@ After, install all necessary to run:
 
     $ pip install -r requirements.txt
 
-Then, add all the required parameters in the `config.json` & run the application:
+Then, add all the required parameters in the [config.json](config.json) & run the application:
 
 	$ python app.py
 
