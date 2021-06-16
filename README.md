@@ -21,7 +21,7 @@ To see your application, access this url in your browser:
 
 	http://localhost:5000
 
-## Configuration: connect to your deployed bot
+## Configuration: Connecting to your deployed bot
 You can configure `BotID`, `LanguageCode`, `MessageType`, `ResponseType`, `refreshToken` in `config.json`. After providing the required parameters in the `config.json` you can run `python app.py` and your bot should respond.
 
 ```json
