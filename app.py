@@ -7,7 +7,7 @@ app.secret_key = 'any random string'
 
 # API Endpoints
 generateAuthTokenUrl = "https://dev-botlhale.io/generateAuthToken"
-connectUrl = "https://dev-botlhale.io/connect"
+connectUrl = "https://dev-botlhale.io/startConversation"
 sendMessageUrl = "https://dev-botlhale.io/message"
 
 # Chatbot Params
